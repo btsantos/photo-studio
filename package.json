@@ -1,0 +1,34 @@
+{
+  "name": "photo-studio",
+  "version": "0.0.1",
+  "description": "This a Web App to manage the resources in a photo studio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miguellgt/photo-studio.git"
+  },
+  "keywords": [
+    "photo",
+    "studio",
+    "manage"
+  ],
+  "author": "Miguel Angel Galicia <miguel.galiciatorrez@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miguellgt/photo-studio/issues"
+  },
+  "homepage": "https://github.com/miguellgt/photo-studio#readme",
+  "dependencies": {
+    "bookshelf": "^0.9.1",
+    "express": "^4.13.4",
+    "knex": "^0.6.10"
+  },
+  "devDependencies": {
+    "standard": "^6.0.5",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.4.0"
+  }
+}
