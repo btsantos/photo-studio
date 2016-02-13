@@ -23,7 +23,6 @@
     "url": "https://github.com/miguellgt/photo-studio/issues"
   },
   "dependencies": {
-  "homepage": "https://github.com/miguellgt/photo-studio#readme",
     "bookshelf": "^0.9.1",
     "express": "^4.13.4",
     "knex": "^0.6.10"
