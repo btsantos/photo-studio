@@ -9,7 +9,7 @@ test('POST /users', function (t) {
     .expect(200)
     .end(function (err, res) {
       t.notOk(err, 'Should not a error')
-      t.equal(res.statusCode, 200, 'Should be to get 200 code')
+      t.equal(res.statusCode, 200, 'Should be to get 201 code')
       t.end()
     })
 })
