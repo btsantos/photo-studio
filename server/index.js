@@ -1,10 +1,12 @@
 var express = require('express')
+var bodyParser = require('body-parser')
 var app = express()
 
-var user = [{name: 'mike'}]
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
-app.get('/api/users', function (req, res) {
-  res.json(user)
+app.post('/api/users', function (req, res) {
+  res.json({})
 })
 
 module.exports = app
