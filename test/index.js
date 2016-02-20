@@ -7,8 +7,10 @@ test('POST /users', function (t) {
     .post('/api/users')
     .send({username: 'mike', email: 'mike@gmail.com', password: '12345'})
     .end(function (err, res) {
-      t.notOk(err, 'Should not a error')
-      t.equal(res.statusCode, 201, 'Should be to get 201 code')
+      t.equal(err, null, 'Error shoudl be null')
+      t.equal(res.body.length, 1, 'Should be just one object')
+      t.equal(res.body[0]._id.length, 24, 'Should have one Id of 24')
+      t.equal(res.statusCode, 201, 'Should be to get a 201 code')
       t.end()
     })
 })
