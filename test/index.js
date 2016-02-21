@@ -1,15 +1,16 @@
 var test = require('tape')
 var request = require('supertest')
-var app = require('../server')
+var app = require('../lib/app')
 
-test('Correct user returned', function (t) {
+var user = {username: 'mike', email: 'mike@gmail.com', password: '12345'}
+
+test('POST /users', function (t) {
   request(app)
-    .get('/api/users')
-    .expect(200)
+    .post('/api/users')
+    .send(user)
     .end(function (err, res) {
-      var userExpect = [{name: 'mike'}]
-      t.error(err, 'Should not be a error')
-      t.same(res.body, userExpect, 'Should be same')
+      t.equal(err, null, 'Error shoudl be null')
+      t.equal(res.statusCode, 201, 'Should be to get a 201 code')
       t.end()
     })
 })

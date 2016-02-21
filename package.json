@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "standard",
     "test": "npm run lint && tape test/*.js | tap-spec",
-    "ci" : "node test/*.js" 
+    "ci": "node test/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "url": "https://github.com/miguellgt/photo-studio/issues"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
     "bookshelf": "^0.9.1",
     "express": "^4.13.4",
     "knex": "^0.6.10"
