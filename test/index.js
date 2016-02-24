@@ -2,7 +2,7 @@ var test = require('tape')
 var request = require('supertest')
 var app = require('../lib/app')
 
-var id_user
+var id_user = 0
 var id_incorrect = 32093244380
 
 test('POST /users', function (t) {
