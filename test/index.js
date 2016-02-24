@@ -3,7 +3,6 @@ var request = require('supertest')
 var app = require('../lib/app')
 
 var id_user = 0
-var id_incorrect = 32093244380
 
 test('POST /users', function (t) {
   var data = {
@@ -34,23 +33,26 @@ test('POST /users', function (t) {
 test('GET /users/:id', function (t) {
   request(app)
     .get('/api/users/' + id_user)
+    .expect(200)
     .end(function (err, res) {
+      var user = res.body.user
       t.equal(err, null, 'err should be null')
-      t.equal(res.body.error, false, 'Should be false the attribute error to the response')
-      t.equal(res.body.data.user.id, id_user, 'Should be the same id for this user')
-      t.equal(res.statusCode, 200, 'Should be sucess the request with status code equal to 200')
+      t.equal(typeof user, 'object', 'Should be a object JavaScript')
+      t.equal(user.id, id_user, 'Should be the same id for this user')
+      t.equal(user.username, 'mike', 'User should have a username = mike')
+      t.equal(user.email, 'mike@gmail.com', 'User should have a email = mike@gmail.com')
       t.end()
     })
 })
 
 test('GET /users/:id with one incorrect id', function (t) {
+  id_user = 12345
   request(app)
-    .get('/api/users/' + id_incorrect)
+    .get('/api/users/' + id_user)
     .end(function (err, res) {
       t.notOk(err, 'Should be not an error')
-      t.equal(res.body.error, true, 'Should be the attribute error true')
-      t.equal(res.body.data.status, 404, 'Should have status code 404')
-      t.equal(res.body.data.message, 'The user with id: ' + id_incorrect + ' did not find', 'Should have a message about the error')
+      t.equal(res.statusCode, 404, 'Should have status code 404')
+      t.equal(res.body.message, 'The user with id: ' + id_user + ' did not find', 'Should have an error message')
       t.end()
     })
 })
