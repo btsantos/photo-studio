@@ -14,21 +14,24 @@ var data = {
 test('POST /users', function (t) {
   request(app)
     .post('/api/users')
-    .set('Accept', 'application/json')
     .send(data)
+    .set('Accept', 'application/json')
     .expect(201)
     .end(function (err, res) {
-      var aux_user = res.body.user
-      t.equal(err, null, 'err response should be null')
-      t.equal(typeof aux_user, 'object', 'Should get a object res.user')
-      t.ok(aux_user.hasOwnProperty('id'), 'User should has an id property')
-      t.equal(aux_user.username, data.user.username, 'User should has an username equal to mike')
-      t.equal(aux_user.email, data.user.email, 'User should has an email equal to mike@gmail.com')
-      t.equal(aux_user.password, data.user.password, 'User should has a password equal to 12345')
-      id_user = aux_user.id
+      var user = res.body.user
+      t.equal(err, null, 'Error response should be null')
+      t.equal(typeof user, 'object', 'Should get a object res.user')
+      t.ok(user.hasOwnProperty('id'), 'User should has an id property')
+      t.equal(user.username, data.user.username, 'User should has an username equal to mike')
+      t.equal(user.email, data.user.email, 'User should has an email equal to mike@gmail.com')
+      t.ok(user.hasOwnProperty('profile'), 'Should has a object profile')
+      t.equal(typeof user.profile, 'object', 'Profile should be a object')
+      id_user = user.id
       t.end()
     })
 })
+
+// TODO: To Validate username, email and generate token
 
 test('GET /users/:id', function (t) {
   request(app)
@@ -36,11 +39,11 @@ test('GET /users/:id', function (t) {
     .expect(200)
     .end(function (err, res) {
       var user = res.body.user
-      t.equal(user.id, id_user, 'Should be the same id for this user')
+      t.equal(user.UserId, id_user, 'Should be the same id for this user')
       t.equal(err, null, 'err should be null')
       t.equal(typeof user, 'object', 'Should be a object JavaScript')
-      t.equal(user.username, data.user.username, 'User should have a username = mike')
-      t.equal(user.email, data.user.email, 'User should have a email = mike@gmail.com')
+      t.equal(user.UserName, data.user.username, 'User should have a username = mike')
+      t.equal(user.Email, data.user.email, 'User should have a email = mike@gmail.com')
       t.end()
     })
 })
