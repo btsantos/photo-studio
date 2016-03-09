@@ -1,6 +1,6 @@
 var test = require('tape')
 
-test('saludar', function (t) {
-  t.equal('aurelio', 'aurelio', 'should be true')
+test('This is a test for profile', function (t) {
+  t.equal('test', 'test', 'should be true')
   t.end()
 })

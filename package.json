@@ -7,7 +7,7 @@
     "lint": "standard",
     "coverage": "istanbul cover tape -- test/*.js",
     "test": "npm run lint && tape test/*.js | tap-spec",
-    "ci": "node test/*.js"
+    "ci": "tape test/*.js"
   },
   "repository": {
     "type": "git",
