@@ -1,7 +1,6 @@
 var test = require('tape')
 
-// Definir recursos a probar para el profile
-test('Create profile for an user', function (t) {
-  t.ok(true, 'testing')
+test('saludar', function (t) {
+  t.equal('aurelio', 'aurelio', 'should be true')
   t.end()
 })
