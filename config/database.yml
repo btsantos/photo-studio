@@ -1,6 +1,5 @@
 test:
     adapter: mysql
     database: photostudio
-    username: root
-    password: root
+    username: travis
     encoding: utf8
