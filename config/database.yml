@@ -2,4 +2,5 @@ test:
     adapter: mysql
     database: photostudio
     username: root
+    password: root
     encoding: utf8
