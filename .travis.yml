@@ -1,4 +1,12 @@
 language: node_js
+
 node_js:
     - '4.2.4'
+
+services:
+    - mysql
+
+before_script:
+    - mysql -e 'create database photostudio;'
+
 script: npm run ci
