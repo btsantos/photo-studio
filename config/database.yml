@@ -1,0 +1,5 @@
+test:
+    adapter: mysql
+    database: photostudio
+    username: travis
+    encoding: utf8
