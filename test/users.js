@@ -1,31 +1,29 @@
-// var test = require('tape')
 var request = require('supertest')
 var expect = require('chai').expect
 var app = require('../lib/app')
 
-describe('this is a test', function () {
-  it('Should add two numbers', function (done) {
+// var id_user = 0
+var data = {
+  user: {
+    username: 'mike',
+    email: 'mike@gmail.com',
+    password: '12345'
+  }
+}
+
+describe('USERS', function () {
+  it('Should create an user - POST /users', function (done) {
     request(app)
-      .post('/add')
-      .send({num1: 10, num2: 20})
-      .expect(200)
-      .end(function (err, res) {
-        expect(err).to.equal(false)
-        expect(res.status).to.be.equal(200)
-        expect(res.body.error).to.be.equal(false)
-        done()
-      })
+    .post('/api/users')
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect(201)
+    .end(function (err, res) {
+      expect(err).to.be.equal(null)
+      done()
+    })
   })
 })
-
-// var id_user = 0
-// var data = {
-//   user: {
-//     username: 'mike',
-//     email: 'mike@gmail.com',
-//     password: '12345'
-//   }
-// }
 
 // test('POST /users', function (t) {
 //   request(app)
