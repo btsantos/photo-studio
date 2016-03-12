@@ -9,8 +9,7 @@
   "scripts": {
     "lint": "standard",
     "test": "npm run lint && node ./node_modules/mocha/bin/mocha",
-    "migrations": "cd ./lib/db && knex migrate:latest",
-    "ci": "npm run migrations && node ./node_modules/mocha/bin/mocha"
+    "ci": "node ./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -28,10 +27,7 @@
   },
   "dependencies": {
     "body-parser": "^1.15.0",
-    "bookshelf": "^0.9.1",
-    "express": "^4.13.4",
-    "knex": "0.9.0",
-    "mysql": "^2.10.2"
+    "express": "^4.13.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
