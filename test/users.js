@@ -13,7 +13,7 @@ describe('USERS', function () {
 
   it('Should create an user - POST /users', function (done) {
     request(app)
-    .post('/api/users')
+    .post('/v1/users')
     .send(data)
     .set('Accept', 'application/json')
     .expect(201)
