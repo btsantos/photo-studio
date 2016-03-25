@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "standard",
     "coverage": "istanbul cover _mocha -- -R spec",
-    "test": "npm run lint && node ./node_modules/mocha/bin/mocha"
+    "test": "npm run lint && make test"
   },
   "repository": {
     "type": "git",
