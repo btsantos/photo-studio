@@ -37,6 +37,7 @@ describe('EMPLOYEES', function () {
       .expect(201)
       .end(function (err, res) {
         expect(err).to.be.equal(null)
+        console.log(res.body)
         done()
       })
   })
