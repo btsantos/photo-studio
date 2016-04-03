@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "standard",
-    "coverage": "istanbul cover _mocha -- -R spec",
+    "test-ci": "istanbul cover _mocha -- -R spec",
     "test": "npm run lint && make test"
   },
   "repository": {
