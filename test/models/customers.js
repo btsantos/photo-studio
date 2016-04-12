@@ -1,7 +1,10 @@
 var mongoose = require('mongoose')
 var expect = require('chai').expect
-// var customer = require('../../lib/models/customers')()
-var Customer = require('../../lib/models/customers')
+var customer = require('../../lib/models/customers')()
+
+mongoose.connection.on('connected', function () {
+  console.log('Mongose default connection')
+})
 
 describe('Customers', function () {
   beforeEach(function (done) {
@@ -15,17 +18,14 @@ describe('Customers', function () {
     done()
   })
 
-  it('check connection db', function (done) {
-    var newCusto = new Customer()
-
-    newCusto.email = 'mike2@gmail.com'
-    newCusto.password = '123'
-
-    newCusto.save(function (err, customer) {
-      console.log(err)
-      expect(err).to.equal(null)
-      console.log(customer)
-      done()
+  describe('shoudl regiser a new customer', function () {
+    it('.register()', function (done) {
+      customer.register({email: 'test@gmail.com', password: '123'}, function (err, cus) {
+        console.log(err)
+        expect(err).to.equal(null)
+        console.log(cus)
+        done()
+      })
     })
   })
 })
