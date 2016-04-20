@@ -3,4 +3,7 @@ language: node_js
 node_js:
     - '4.2.4'
 
+services:
+    - mongodb
+
 script: npm run test-ci

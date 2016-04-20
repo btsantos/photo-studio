@@ -9,7 +9,7 @@ describe('Customers', function () {
   beforeEach(function (done) {
     mongoose.connection.db.dropCollection('customers', function (err, result) {
       if (err) {
-        console.log(new Error(err))
+        console.log(err)
       }
     })
     done()
