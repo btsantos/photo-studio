@@ -1,6 +1,6 @@
 var request = require('supertest')
 var expect = require('chai').expect
-var app = require('../lib')
+var app = require('../../lib')
 
 describe('Photographers', function () {
   var data = {

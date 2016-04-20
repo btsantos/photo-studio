@@ -1,11 +1,28 @@
 var expect = require('chai').expect
 var customer = require('../../lib/models/customers')()
-require('../../lib/models/db')
+var mongoose = require('mongoose')
+var dbURI = 'mongodb://localhost/getme'
+
+mongoose.connect(dbURI)
 
 describe('Customers', function () {
-  describe('shoudl regiser a new customer', function () {
-    it('.register()', function (done) {
-      customer.register({email: 'info@gmail', firstName: 'info', lastName: 'foin'}, function (err, customer) {
+  beforeEach(function (done) {
+    mongoose.connection.db.dropCollection('customers', function (err, result) {
+      if (err) {
+        console.log(new Error(err))
+      }
+    })
+    done()
+  })
+
+  describe('.register()', function () {
+    it('should register a customer', function (done) {
+      var newCustomer = {
+        email: 'mike@gmail.com',
+        firstName: 'Miguel',
+        lastName: 'Galicia'
+      }
+      customer.register(newCustomer, function (err, customer) {
         expect(err).to.equal(null)
         done()
       })

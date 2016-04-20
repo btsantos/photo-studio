@@ -7,9 +7,10 @@
   "description": "This a Web App to manage the resources in a photo studio",
   "main": "index.js",
   "scripts": {
-    "test-coverage": "istanbul cover _mocha -- -R spec",
+    "test-coverage": "istanbul cover _mocha -- --recursive -R spec",
     "test-ci": "make test",
-    "test": "standard && make test"
+    "lint": "standard",
+    "test": "npm run lint && make test"
   },
   "repository": {
     "type": "git",
