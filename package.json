@@ -2,7 +2,15 @@
   "name": "photo-studio",
   "version": "0.0.1",
   "standard": {
-    "globals": ["describe", "before", "beforeEach", "after", "afterEach", "it", "expect"]
+    "globals": [
+      "describe",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect"
+    ]
   },
   "description": "This a Web App to manage the resources in a photo studio",
   "main": "index.js",
@@ -28,7 +36,8 @@
   },
   "dependencies": {
     "body-parser": "^1.15.0",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "mongoose": "^4.4.12"
   },
   "devDependencies": {
     "chai": "^3.5.0",
