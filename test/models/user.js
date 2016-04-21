@@ -1,5 +1,6 @@
 var expect = require('chai').expect
 var user = require('../../src/models/user')()
+
 var mongoose = require('mongoose')
 
 describe('models/users', function () {

@@ -1,6 +1,6 @@
 var server = require('./src')
-var port = process.env.PORT || 3000
+var config = require('./config')
 
-server.listen(port, function () {
-  console.log('Server running on port %d ', port)
+server.listen(config.port, function () {
+  console.log('Server running on port %d ', config.port)
 })
