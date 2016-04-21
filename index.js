@@ -1,4 +1,4 @@
-var server = require('./lib')
+var server = require('./src')
 var port = process.env.PORT || 3000
 
 server.listen(port, function () {

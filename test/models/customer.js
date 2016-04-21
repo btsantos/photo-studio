@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-var customer = require('../../lib/models/customer')()
+var customer = require('../../src/models/customer')()
 var mongoose = require('mongoose')
 var dbURI = 'mongodb://localhost/getme'
 
