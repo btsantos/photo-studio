@@ -1,15 +1,12 @@
 var expect = require('chai').expect
-var users = require('../../lib/models/users')()
+var users = require('../../lib/models/user')()
 var mongoose = require('mongoose')
 
 describe('models/users', function () {
   beforeEach(function (done) {
     mongoose.connection.db.dropCollection('users', function (err, result) {
-      if (err) {
-        console.log(err)
-      }
+      err ? console.log(err) : done()
     })
-    done()
   })
 
   describe('.createUser()', function () {
