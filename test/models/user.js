@@ -1,25 +1,33 @@
 var expect = require('chai').expect
+var faker = require('faker')
 var user = require('../../src/models/user')()
 
 var mongoose = require('mongoose')
 
 describe('models/users', function () {
-  beforeEach(function (done) {
+  before(function (done) {
     mongoose.connection.db.dropCollection('users', function (err, result) {
       err ? console.log(err) : done()
     })
   })
 
   describe('.register()', function () {
-    it('should register an user', function (done) {
-      var data = {
-        name: 'test',
-        email: 'test@gmail.com'
-      }
-      user.register(data, function (err, doc) {
-        expect(err).to.equal(null)
-        done()
+    var users = []
+    for (var i = 0; i < 5; i++) {
+      users.push({
+        name: faker.name.findName(),
+        email: faker.internet.email()
       })
-    })
+    }
+    for (var j = 0, x = users.length; j < x; j++) {
+      it('should save the user = { name: ' + users[j].name + ', email: ' + users[j].email + '}', function (done) {
+        user.register(users[j], function (err, doc) {
+          expect(err).to.equal(null)
+          expect(doc).to.be.an('object')
+          expect(doc).to.have.property('_id')
+          done()
+        })
+      })
+    }
   })
 })
