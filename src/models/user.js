@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 module.exports = function () {
-  var User = mongoose.model('users', new Schema({
+  var UserSchema = new Schema({
     name: String,
     email: {
       type: String,
@@ -13,17 +13,24 @@ module.exports = function () {
       default: Date.now
     },
     lastLogin: Date
-  }))
+  })
 
-  var createUser = function (user, callback) {
-    var newUser = new User(user)
-    newUser.save(function (err, doc) {
-      err ? callback(err) : callback(null, doc)
+  var Users = mongoose.model('users', UserSchema)
+
+  var _register = function (data, callback) {
+    var newUser = new Users(data)
+
+    newUser.lastLogin = Date.now()
+    // Some more operations on newUser
+    newUser.save(function (err, user) {
+      if (err) {
+        return callback(err)
+      }
+      callback(null, user)
     })
   }
 
   return {
-    model: User,
-    createUser: createUser
+    register: _register
   }
 }

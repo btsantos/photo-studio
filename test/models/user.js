@@ -1,5 +1,6 @@
 var expect = require('chai').expect
-var users = require('../../src/models/user')()
+var user = require('../../src/models/user')()
+
 var mongoose = require('mongoose')
 
 describe('models/users', function () {
@@ -9,15 +10,14 @@ describe('models/users', function () {
     })
   })
 
-  describe('.createUser()', function () {
-    var user = {
-      name: 'Miguel',
-      email: 'miguel@gmail.com'
-    }
-    it('should create new user using a closure', function (done) {
-      users.createUser(user, function (err, doc) {
+  describe('.register()', function () {
+    it('should register an user', function (done) {
+      var data = {
+        name: 'test',
+        email: 'test@gmail.com'
+      }
+      user.register(data, function (err, doc) {
         expect(err).to.equal(null)
-        expect(user.name).to.equal(doc.name)
         done()
       })
     })
