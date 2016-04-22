@@ -19,15 +19,18 @@ describe('models/users', function () {
         email: faker.internet.email()
       })
     }
+
     for (var j = 0, x = users.length; j < x; j++) {
-      it('should save the user = { name: ' + users[j].name + ', email: ' + users[j].email + '}', function (done) {
-        user.register(users[j], function (err, doc) {
-          expect(err).to.equal(null)
-          expect(doc).to.be.an('object')
-          expect(doc).to.have.property('_id')
-          done()
+      (function (i) {
+        it('should save the user = { name: ' + users[i].name + ', email: ' + users[i].email + '}', function (done) {
+          user.register(users[i], function (err, doc) {
+            expect(err).to.equal(null)
+            expect(doc).to.be.an('object')
+            expect(doc).to.have.property('_id')
+            done()
+          })
         })
-      })
+      })(j)
     }
   })
 })
