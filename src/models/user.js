@@ -18,13 +18,15 @@ module.exports = function () {
   var Users = mongoose.model('users', UserSchema)
 
   var _register = function (data, callback) {
-    var user = new Users(data)
+    var newUser = new Users(data)
 
-    user.save(function (err, doc) {
+    newUser.lastLogin = Date.now()
+    // Some more operations on newUser
+    newUser.save(function (err, user) {
       if (err) {
         return callback(err)
       }
-      callback(null, doc)
+      callback(null, user)
     })
   }
 

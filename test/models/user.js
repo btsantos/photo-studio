@@ -10,15 +10,14 @@ describe('models/users', function () {
     })
   })
 
-  describe('.createUser()', function () {
-    it('should create new user', function (done) {
+  describe('.register()', function () {
+    it('should register an user', function (done) {
       var data = {
         name: 'test',
         email: 'test@gmail.com'
       }
       user.register(data, function (err, doc) {
         expect(err).to.equal(null)
-        console.log(doc)
         done()
       })
     })
