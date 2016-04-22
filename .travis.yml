@@ -4,9 +4,6 @@ node_js:
     - '4.2.4'
 
 services:
-    - mysql
+    - mongodb
 
-before_script:
-    - mysql -e 'create database photostudio;'
-
-script: npm run ci
+script: npm run test-ci
