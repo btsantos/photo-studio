@@ -31,7 +31,19 @@ module.exports = function () {
     })
   }
 
+  var _getUser = function (user, cb) {
+    var query = Users.find(user)
+
+    query.sort('-lastLogin')
+    query.select('_id name email')
+
+    query.exec(function (err, user) {
+      err ? cb(err) : cb(null, user[0])
+    })
+  }
+
   return {
-    register: _register
+    register: _register,
+    getUser: _getUser
   }
 }
