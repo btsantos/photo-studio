@@ -8,6 +8,7 @@ module.exports = function () {
       type: String,
       unique: true
     },
+    age: Number,
     createdOn: {
       type: Date,
       default: Date.now
