@@ -43,6 +43,7 @@ describe('models/users', function () {
     it('shoud get just one user with his id, name and email', function (done) {
       user.getUser({name: userTest.name}, function (err, doc) {
         expect(err).to.equal(null)
+        console.log(doc)
         expect(doc).to.be.an('object')
         expect(doc).to.has.property('_id')
         expect(doc).to.has.property('name').equal(userTest.name)
