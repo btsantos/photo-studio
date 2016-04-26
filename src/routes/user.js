@@ -60,14 +60,19 @@ router.route('/users/:id')
    */
   .get(function (req, res) {
     User.findOne({_id: req.params.id}, function (err, user) {
-      if (err) {
+      if (err != null) {
         res.status(504).json({message: 'Fail in the server'})
+      } else {
+        if (user != null) {
+          res.status(200).json({
+            _id: user._id,
+            username: user.username,
+            email: user.email
+          })
+        } else {
+          res.status(404).json({message: 'User did not find'})
+        }
       }
-      res.status(200).json({
-        _id: user._id,
-        username: user.username,
-        email: user.email
-      })
     })
   })
 

@@ -74,7 +74,7 @@ describe('Resource User', function () {
   })
 
   describe('GET /users/:id', function () {
-    it('should get just one user with his user id', function (done) {
+    it('should get just one user who exist in the database', function (done) {
       request(app)
       .get('/api/v1/users/' + userTest._id)
       .set('Accept', 'application/json')
@@ -84,6 +84,17 @@ describe('Resource User', function () {
         expect(err).to.equal(null)
         expect(user).to.be.an('object')
         expect(user).to.has.property('_id').equal(userTest._id)
+        done()
+      })
+    })
+
+    it('should get a status code equal 404 if the users does not exist', function (done) {
+      request(app)
+      .get('/api/v1/users/223242324232423242324324')
+      .set('Accept', 'application/json')
+      .expect(404)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
         done()
       })
     })
