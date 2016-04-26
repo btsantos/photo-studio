@@ -7,6 +7,8 @@ var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/getme')
 
 describe('Resource User', function () {
+  var userTest = {}
+
   before(function (done) {
     mongoose.connection.db.dropCollection('users', function (err, result) {
       if (err) {
@@ -59,12 +61,29 @@ describe('Resource User', function () {
         expect(err).to.equal(null)
         expect(users).to.be.an('Array')
         expect(users.length).to.equal(5)
+        userTest = users[0]
         for (var i = 0, x = users.length; i < x; i++) {
           expect(users[i]).to.be.an('object')
           expect(users[i]).to.has.property('_id')
           expect(users[i]).to.has.property('username')
           expect(users[i]).to.has.property('email')
         }
+        done()
+      })
+    })
+  })
+
+  describe('GET /users/:id', function () {
+    it('should get just one user with his user id', function (done) {
+      request(app)
+      .get('/api/v1/users/' + userTest._id)
+      .set('Accept', 'application/json')
+      .expect(200)
+      .end(function (err, res) {
+        var user = res.body
+        expect(err).to.equal(null)
+        expect(user).to.be.an('object')
+        expect(user).to.has.property('_id').equal(userTest._id)
         done()
       })
     })

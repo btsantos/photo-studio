@@ -48,4 +48,27 @@ router.route('/users')
     })
   })
 
+router.route('/users/:id')
+  /**
+   * @api {get} /users/2324 Get one user
+   * @apiDescription Endpoint to get one user with id
+   * @apiName GetUser
+   * @apiVersion 0.1.3
+   *
+   * @apiExample {curl} CURL Example:
+   * curl GET https://localhost/api/v1/users/1244
+   */
+  .get(function (req, res) {
+    User.findOne({_id: req.params.id}, function (err, user) {
+      if (err) {
+        res.status(504).json({message: 'Fail in the server'})
+      }
+      res.status(200).json({
+        _id: user._id,
+        username: user.username,
+        email: user.email
+      })
+    })
+  })
+
 module.exports = router
