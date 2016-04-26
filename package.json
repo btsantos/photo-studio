@@ -15,6 +15,7 @@
   "description": "This a Web App to manage the resources in a photo studio",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
     "test-coverage": "istanbul cover _mocha -- --recursive -R spec",
     "test-ci": "make test",
     "lint": "standard",
