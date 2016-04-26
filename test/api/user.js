@@ -39,10 +39,34 @@ describe('Resource User', function () {
             expect(err).to.be.equal(null)
             expect(myUser).to.not.be.undefined
             expect(myUser).to.has.property('_id')
+            expect(myUser).to.has.property('username').equal(users[i].username)
+            expect(myUser).to.has.property('email').equal(users[i].email)
             done()
           })
         })
       })(j)
     }
+  })
+
+  describe('GET /users', function () {
+    it('should get all users', function (done) {
+      request(app)
+      .get('/api/v1/users')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .end(function (err, res) {
+        var users = res.body
+        expect(err).to.equal(null)
+        expect(users).to.be.an('Array')
+        expect(users.length).to.equal(5)
+        for (var i = 0, x = users.length; i < x; i++) {
+          expect(users[i]).to.be.an('object')
+          expect(users[i]).to.has.property('_id')
+          expect(users[i]).to.has.property('username')
+          expect(users[i]).to.has.property('email')
+        }
+        done()
+      })
+    })
   })
 })
