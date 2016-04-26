@@ -1,5 +1,5 @@
 var router = require('express').Router()
-var users = []
+var User = require('../models/user')
 
 router.route('/users')
   /**
@@ -16,9 +16,18 @@ router.route('/users')
    * @apiParam (RequestBody) {String} password The password to use in the login
    */
   .post(function (req, res) {
-    var user = req.body.user
-    users.push(user)
-    res.status(201).json(user)
+    var user = new User(req.body)
+
+    user.save(function (err, doc) {
+      if (err) {
+        res.status(504).json({ message: 'Error en el servidor' })
+      }
+      res.status(201).json({
+        _id: doc._id,
+        username: doc.username,
+        email: doc.email
+      })
+    })
   })
 
 module.exports = router
