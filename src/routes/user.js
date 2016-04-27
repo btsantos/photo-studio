@@ -60,10 +60,10 @@ router.route('/users/:id')
    */
   .get(function (req, res) {
     User.findById(req.params.id, function (err, user) {
-      if (err != null) {
+      if (err) {
         res.status(504).json({message: 'Fail in the server'})
       } else {
-        if (user != null) {
+        if (user) {
           res.status(200).json({
             _id: user._id,
             username: user.username,
@@ -73,6 +73,18 @@ router.route('/users/:id')
           res.status(404).json({message: 'User did not find'})
         }
       }
+    })
+  })
+
+  .delete(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+      if (err || !user) {
+      }
+      user.remove(function (err) {
+        if (!err) {
+          res.status(200).json({status: 'ok'})
+        }
+      })
     })
   })
 
