@@ -4,8 +4,6 @@ var app = require('../../src')
 var faker = require('faker')
 var mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/getme')
-
 describe('Resource User', function () {
   var userTest = {}
 
