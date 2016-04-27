@@ -59,7 +59,7 @@ router.route('/users/:id')
    * curl GET https://localhost/api/v1/users/1244
    */
   .get(function (req, res) {
-    User.findOne({_id: req.params.id}, function (err, user) {
+    User.findById(req.params.id, function (err, user) {
       if (err != null) {
         res.status(504).json({message: 'Fail in the server'})
       } else {

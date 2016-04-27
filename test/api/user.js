@@ -72,7 +72,7 @@ describe('Resource User', function () {
   })
 
   describe('GET /users/:id', function () {
-    it('should get just one user who exist in the database', function (done) {
+    it('should get just one user that exist in the database', function (done) {
       request(app)
       .get('/api/v1/users/' + userTest._id)
       .set('Accept', 'application/json')
