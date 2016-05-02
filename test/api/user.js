@@ -126,7 +126,7 @@ describe('Resource User', function () {
       .send({username: 'miguelgt'})
       .end(function (err, res) {
         expect(err).to.equal(null)
-        expect(res.body.user).to.has.property('username').equal('miguelgt')
+        expect(res.body).to.has.property('username').equal('miguelgt')
         done()
       })
     })

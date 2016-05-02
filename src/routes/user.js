@@ -1,3 +1,5 @@
+'use strict'
+
 var router = require('express').Router()
 var User = require('../models/user')
 
@@ -96,7 +98,18 @@ router.route('/users/:id')
         user.username = req.body.username
         user.save(function (err, doc) {
           if (!err && doc) {
-            res.status(201).json({status: 'ok'})
+            let user = {
+              _id: doc._id,
+              _links: [
+                {
+                  rel: 'self',
+                  href: 'http://localhost:3000/v1/users/' + doc._id
+                }
+              ],
+              username: doc.username,
+              email: doc.email
+            }
+            res.status(201).json(user)
           }
         })
       }
