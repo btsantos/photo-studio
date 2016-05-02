@@ -97,12 +97,36 @@ describe('Resource User', function () {
   })
 
   describe('DELETE /users/:id', function () {
-    it('should return status 200 after DELETE a user', function (done) {
+    it('should return status 204 after DELETE the user', function (done) {
       request(app)
       .del('/v1/users/' + usersTest.pop()._id)
       .end(function (err, res) {
         if (err) throw err
         expect(res.status).to.equal(204)
+        done()
+      })
+    })
+  })
+
+  describe('PUT /users/:id', function () {
+    it('should return status 201 after update the user', function (done) {
+      request(app)
+      .put('/v1/users/' + usersTest[0]._id)
+      .send({username: 'miguellgt'})
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.status).to.equal(201)
+        done()
+      })
+    })
+
+    it('should return one representation of user which has the new username', function (done) {
+      request(app)
+      .put('/v1/users/' + usersTest[0]._id)
+      .send({username: 'miguelgt'})
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body.user).to.has.property('username').equal('miguelgt')
         done()
       })
     })

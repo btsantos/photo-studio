@@ -78,13 +78,28 @@ router.route('/users/:id')
 
   .delete(function (req, res) {
     User.findById(req.params.id, function (err, user) {
-      if (err || !user) {
-      }
-      user.remove(function (err) {
-        if (!err) {
-          res.status(204).json({status: 'ok'})
+      if (!err) {
+        if (user) {
+          user.remove(function (err) {
+            if (!err) {
+              res.status(204).json({status: 'ok'})
+            }
+          })
         }
-      })
+      }
+    })
+  })
+
+  .put(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+      if (!err) {
+        user.username = req.body.username
+        user.save(function (err, doc) {
+          if (!err && doc) {
+            res.status(201).json({status: 'ok'})
+          }
+        })
+      }
     })
   })
 
