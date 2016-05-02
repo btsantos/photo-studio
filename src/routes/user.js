@@ -2,6 +2,7 @@
 
 var router = require('express').Router()
 var User = require('../models/user')
+var config = require('../../config')
 
 router.route('/users')
   /**
@@ -103,7 +104,7 @@ router.route('/users/:id')
               _links: [
                 {
                   rel: 'self',
-                  href: 'http://localhost:3000/v1/users/' + doc._id
+                  href: config.hostname + 'v1/users/' + doc._id
                 }
               ],
               username: doc.username,
