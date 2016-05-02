@@ -20,7 +20,7 @@ router.route('/users')
 
     user.save(function (err, doc) {
       if (err) {
-        res.status(504).json({ message: 'Error en el servidor' })
+        res.status(500).json({ message: 'Error en el servidor' })
       }
       res.status(201).json({
         _id: doc._id,
@@ -42,7 +42,7 @@ router.route('/users')
   .get(function (req, res) {
     User.find({}, function (err, users) {
       if (err) {
-        res.status(504).json({message: 'Error en el server'})
+        res.status(500).json({message: 'Error en el server'})
       }
       res.status(200).json(users)
     })
@@ -61,7 +61,7 @@ router.route('/users/:id')
   .get(function (req, res) {
     User.findById(req.params.id, function (err, user) {
       if (err) {
-        res.status(504).json({message: 'Fail in the server'})
+        res.status(500).json({message: 'Fail in the server'})
       } else {
         if (user) {
           res.status(200).json({
@@ -82,7 +82,7 @@ router.route('/users/:id')
       }
       user.remove(function (err) {
         if (!err) {
-          res.status(200).json({status: 'ok'})
+          res.status(204).json({status: 'ok'})
         }
       })
     })

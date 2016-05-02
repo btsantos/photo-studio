@@ -31,7 +31,7 @@ describe('Resource User', function () {
       (function (i) {
         it('should create the user = { name: ' + users[i].username + ', email: ' + users[i].email + '}', function (done) {
           request(app)
-          .post('/api/v1/users')
+          .post('/v1/users')
           .send(users[i])
           .set('Accept', 'application/json')
           .expect(201)
@@ -52,7 +52,7 @@ describe('Resource User', function () {
   describe('GET /users', function () {
     it('should get all users', function (done) {
       request(app)
-      .get('/api/v1/users')
+      .get('/v1/users')
       .expect(200)
       .end(function (err, res) {
         var users = res.body
@@ -74,7 +74,7 @@ describe('Resource User', function () {
   describe('GET /users/:id', function () {
     it('should get just one user that exist in the database', function (done) {
       request(app)
-      .get('/api/v1/users/' + usersTest[0]._id)
+      .get('/v1/users/' + usersTest[0]._id)
       .expect(200)
       .end(function (err, res) {
         var user = res.body
@@ -87,7 +87,7 @@ describe('Resource User', function () {
 
     it('should get a status code equal 404 if the users does not exist', function (done) {
       request(app)
-      .get('/api/v1/users/223242324232423242324324')
+      .get('/v1/users/223242324232423242324324')
       .end(function (err, res) {
         expect(err).to.equal(null)
         expect(res.status).to.equal(404)
@@ -99,10 +99,10 @@ describe('Resource User', function () {
   describe('DELETE /users/:id', function () {
     it('should return status 200 after DELETE a user', function (done) {
       request(app)
-      .del('/api/v1/users/' + usersTest.pop()._id)
+      .del('/v1/users/' + usersTest.pop()._id)
       .end(function (err, res) {
         if (err) throw err
-        expect(res.status).to.equal(200)
+        expect(res.status).to.equal(204)
         done()
       })
     })

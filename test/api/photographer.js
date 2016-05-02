@@ -18,7 +18,7 @@ describe('Photographers', function () {
   describe('Create a new Photographer', function () {
     it('POST /photographers', function (done) {
       request(app)
-        .post('/api/v1/photographers')
+        .post('/v1/photographers')
         .send(data)
         .set('Accept', 'application/json')
         .expect(201)
