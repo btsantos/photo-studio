@@ -5,7 +5,8 @@ var UserSchema = new Schema({
   username: String,
   email: {
     type: String,
-    unique: true
+    unique: true,
+    require: true
   },
   createdOn: {
     type: Date,
