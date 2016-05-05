@@ -85,7 +85,7 @@ router.route('/users/:id')
         if (user) {
           user.remove(function (err) {
             if (!err) {
-              res.status(204).json({status: 'ok'})
+              res.status(200).json({message: 'User ' + user.username + ' was deleted'})
             }
           })
         }

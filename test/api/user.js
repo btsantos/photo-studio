@@ -97,12 +97,23 @@ describe('Resource User', function () {
   })
 
   describe('DELETE /users/:id', function () {
-    it('should return status 204 after DELETE the user', function (done) {
+    it('should return status 200 after DELETE the user', function (done) {
       request(app)
       .del('/v1/users/' + usersTest.pop()._id)
       .end(function (err, res) {
         if (err) throw err
-        expect(res.status).to.equal(204)
+        expect(res.status).to.equal(200)
+        done()
+      })
+    })
+
+    it('should return a message equal to -> user was deleted', function (done) {
+      var userDeleted = usersTest.pop()
+      request(app)
+      .del('/v1/users/' + userDeleted._id)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body.message).to.equal('User ' + userDeleted.username + ' was deleted')
         done()
       })
     })
