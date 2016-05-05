@@ -12,7 +12,7 @@ router.route('/users')
    * @apiVersion 0.0.1
    *
    * @apiExample {curl} CURL Example:
-   * curl -X POST http://localhost/api/users
+   * curl -X POST http://localhost:3000/v1/users
    *
    * @apiParam (RequestBody) {String} username The username that will be in the system
    * @apiParam (RequestBody) {String} email The email to use in the login
@@ -40,7 +40,7 @@ router.route('/users')
    * @apiVersion 0.1.3
    *
    * @apiExample {curl} CURL Example:
-   * curl GET https://localhost/api/v1/users
+   * curl GET http://localhost:3000/v1/users
    */
   .get(function (req, res) {
     User.find({}, function (err, users) {
@@ -59,7 +59,7 @@ router.route('/users/:id')
    * @apiVersion 0.1.3
    *
    * @apiExample {curl} CURL Example:
-   * curl GET https://localhost/api/v1/users/1244
+   * curl GET http://localhost:3000/v1/users/123456
    */
   .get(function (req, res) {
     User.findById(req.params.id, function (err, user) {
@@ -79,6 +79,15 @@ router.route('/users/:id')
     })
   })
 
+  /**
+   * @api {delete} /users/2324 Delete one user
+   * @apiDescription Endpoint to delete one user with his id
+   * @apiName DeleteUser
+   * @apiVersion 0.1.3
+   *
+   * @apiExample {curl} CURL Example:
+   * curl DELETE http://localhost:3000/v1/users/123456
+   */
   .delete(function (req, res) {
     User.findById(req.params.id, function (err, user) {
       if (!err) {
@@ -93,6 +102,15 @@ router.route('/users/:id')
     })
   })
 
+  /**
+   * @api {put} /users/2324 Update one user
+   * @apiDescription Endpoint to update one user with his id
+   * @apiName UpdateUser
+   * @apiVersion 0.1.3
+   *
+   * @apiExample {curl} CURL Example:
+   * curl PUT http://localhost:3000/v1/users/123456
+   */
   .put(function (req, res) {
     User.findById(req.params.id, function (err, user) {
       if (!err) {
