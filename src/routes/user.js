@@ -19,6 +19,8 @@ router.route('/users')
    * @apiParam (RequestBody) {String} password The password to use in the login
    */
   .post(function (req, res) {
+    // TODO: Especificar el Content-type del response, para este caso es application/json
+    User.find({}, function (err, users) {
     var user = new User(req.body)
 
     user.save(function (err, doc) {
@@ -43,6 +45,7 @@ router.route('/users')
    * curl GET http://localhost:3000/v1/users
    */
   .get(function (req, res) {
+    // TODO: Especificar el Content-type del response, para este caso es application/json
     User.find({}, function (err, users) {
       if (err) {
         res.status(500).json({message: 'Error en el server'})
@@ -62,6 +65,8 @@ router.route('/users/:id')
    * curl GET http://localhost:3000/v1/users/123456
    */
   .get(function (req, res) {
+    // TODO: Especificar el Content-type del response, para este caso es application/json
+    User.find({}, function (err, users) {
     User.findById(req.params.id, function (err, user) {
       if (err) {
         res.status(500).json({message: 'Fail in the server'})
@@ -89,6 +94,8 @@ router.route('/users/:id')
    * curl DELETE http://localhost:3000/v1/users/123456
    */
   .delete(function (req, res) {
+    // TODO: Especificar el Content-type del response, para este caso es application/json
+    User.find({}, function (err, users) {
     User.findById(req.params.id, function (err, user) {
       if (!err) {
         if (user) {
@@ -112,6 +119,8 @@ router.route('/users/:id')
    * curl PUT http://localhost:3000/v1/users/123456
    */
   .put(function (req, res) {
+    // TODO: Especificar el Content-type del response, para este caso es application/json
+    User.find({}, function (err, users) {
     User.findById(req.params.id, function (err, user) {
       if (!err) {
         user.username = req.body.username

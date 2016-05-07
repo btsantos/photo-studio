@@ -29,6 +29,7 @@ describe('Resource User', function () {
 
     for (var j = 0; j < NUM_USERS; j++) {
       (function (i) {
+        // TODO: Especificar cual es el content-type del response que se espera del request
         it('should create the user = { name: ' + users[i].username + ', email: ' + users[i].email + '}', function (done) {
           request(app)
           .post('/v1/users')
@@ -50,6 +51,8 @@ describe('Resource User', function () {
   })
 
   describe('GET /users', function () {
+    // TODO: Especificar cual es el content-type del response que se espera del request
+    User.find({}, function (err, users) {
     it('should get all users', function (done) {
       request(app)
       .get('/v1/users')
@@ -72,6 +75,7 @@ describe('Resource User', function () {
   })
 
   describe('GET /users/:id', function () {
+    // TODO: Especificar cual es el content-type del response que se espera del request
     it('should get just one user that exist in the database', function (done) {
       request(app)
       .get('/v1/users/' + usersTest[0]._id)
@@ -86,6 +90,7 @@ describe('Resource User', function () {
     })
 
     it('should get a status code equal 404 if the users does not exist', function (done) {
+      // TODO: Especificar cual es el content-type del response que se espera del request
       request(app)
       .get('/v1/users/223242324232423242324324')
       .end(function (err, res) {
@@ -97,6 +102,7 @@ describe('Resource User', function () {
   })
 
   describe('DELETE /users/:id', function () {
+    // TODO: Especificar cual es el content-type del response que se espera del request
     it('should return status 200 after DELETE the user', function (done) {
       request(app)
       .del('/v1/users/' + usersTest.pop()._id)
@@ -108,6 +114,7 @@ describe('Resource User', function () {
     })
 
     it('should return a message equal to -> user was deleted', function (done) {
+      // TODO: Especificar cual es el content-type del response que se espera del request
       var userDeleted = usersTest.pop()
       request(app)
       .del('/v1/users/' + userDeleted._id)
@@ -120,6 +127,7 @@ describe('Resource User', function () {
   })
 
   describe('PUT /users/:id', function () {
+    // TODO: Especificar cual es el content-type del response que se espera del request
     it('should return status 201 after update the user', function (done) {
       request(app)
       .put('/v1/users/' + usersTest[0]._id)
@@ -132,6 +140,7 @@ describe('Resource User', function () {
     })
 
     it('should return one representation of user which has the new username', function (done) {
+      // TODO: Especificar cual es el content-type del response que se espera del request
       request(app)
       .put('/v1/users/' + usersTest[0]._id)
       .send({username: 'miguelgt'})
