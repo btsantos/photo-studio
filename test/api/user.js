@@ -52,6 +52,7 @@ describe('Resource User', function () {
 
   describe('GET /users', function () {
     // TODO: Especificar cual es el content-type del response que se espera del request
+    // This case should be application/vnd.collection+json
     User.find({}, function (err, users) {
     it('should get all users', function (done) {
       request(app)
