@@ -20,7 +20,6 @@ router.route('/users')
    */
   .post(function (req, res) {
     // TODO: Especificar el Content-type del response, para este caso es application/json
-    User.find({}, function (err, users) {
     var user = new User(req.body)
 
     user.save(function (err, doc) {
@@ -50,25 +49,24 @@ router.route('/users')
       if (err) {
         res.status(500).json({message: 'Error en el server'})
       }
-
-      let usersRepresentation = {
-        collection: {
-          // The Collection+JSON standar defines  this string (href) as "the address used 
-          // to retrieve a representation of the document"
-          href: config.urlBase + '/v1/users/',
-          // Each item in the list represents an HTTP resource  with its own URL
-          items: [{
-            // href: 'http://localhost:3000/v1/users/12324335'
-            href: config.urlBase + '/v1/users/' + users._id,
-            data: {
-              email: users[i].email
-              username: users[i].username,
-            }
-            links: []
-          }]
-        }
-        // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
-      }
+      // let usersRepresentation = {
+      //   collection: {
+      //     // The Collection+JSON standar defines  this string (href) as "the address used
+      //     // to retrieve a representation of the document"
+      //     href: config.urlBase + '/v1/users/',
+      //     // Each item in the list represents an HTTP resource  with its own URL
+      //     items: [{
+      //       // href: 'http://localhost:3000/v1/users/12324335'
+      //       href: config.urlBase + '/v1/users/' + users._id,
+      //       data: {
+      //         email: users[i].email
+      //         username: users[i].username,
+      //       }
+      //       links: []
+      //     }]
+      //   }
+      //   // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
+      // }
       res.status(200).json(users)
     })
   })
@@ -85,7 +83,6 @@ router.route('/users/:id')
    */
   .get(function (req, res) {
     // TODO: Especificar el Content-type del response, para este caso es application/json
-    User.find({}, function (err, users) {
     User.findById(req.params.id, function (err, user) {
       if (err) {
         res.status(500).json({message: 'Fail in the server'})
@@ -114,7 +111,6 @@ router.route('/users/:id')
    */
   .delete(function (req, res) {
     // TODO: Especificar el Content-type del response, para este caso es application/json
-    User.find({}, function (err, users) {
     User.findById(req.params.id, function (err, user) {
       if (!err) {
         if (user) {
@@ -139,7 +135,6 @@ router.route('/users/:id')
    */
   .put(function (req, res) {
     // TODO: Especificar el Content-type del response, para este caso es application/json
-    User.find({}, function (err, users) {
     User.findById(req.params.id, function (err, user) {
       if (!err) {
         user.username = req.body.username
