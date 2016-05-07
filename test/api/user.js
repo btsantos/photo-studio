@@ -59,6 +59,7 @@ describe('Resource User', function () {
       .expect(200)
       .end(function (err, res) {
         var users = res.body
+        console.log(users)
         expect(err).to.equal(null)
         expect(users).to.be.an('Array')
         expect(users.length).to.equal(NUM_USERS)

@@ -49,25 +49,28 @@ router.route('/users')
       if (err) {
         res.status(500).json({message: 'Error en el server'})
       }
-      // let usersRepresentation = {
-      //   collection: {
-      //     // The Collection+JSON standar defines  this string (href) as "the address used
-      //     // to retrieve a representation of the document"
-      //     href: config.urlBase + '/v1/users/',
-      //     // Each item in the list represents an HTTP resource  with its own URL
-      //     items: [{
-      //       // href: 'http://localhost:3000/v1/users/12324335'
-      //       href: config.urlBase + '/v1/users/' + users._id,
-      //       data: {
-      //         email: users[i].email
-      //         username: users[i].username,
-      //       }
-      //       links: []
-      //     }]
-      //   }
-      //   // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
-      // }
-      res.status(200).json(users)
+      var _items = users.map((user) => {
+        return {
+          // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
+          href: config.urlBase + 'v1/users/' + user._id,
+          data: {
+            username: user.username,
+            email: user.email
+          },
+          links: []
+        }
+      })
+      let usersRepresentation = {
+        collection: {
+          // The Collection+JSON standar defines  this string (href) as "the address used
+          // to retrieve a representation of the document"
+          href: config.urlBase + '/v1/users/',
+          // Each item in the list represents an HTTP resource  with its own URL
+          items: _items
+        }
+      }
+
+      res.status(200).json(usersRepresentation)
     })
   })
 
