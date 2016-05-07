@@ -1,3 +1,5 @@
+'use strict'
+
 var request = require('supertest')
 var expect = require('chai').expect
 var app = require('../../src')
@@ -51,14 +53,22 @@ describe('Resource User', function () {
   })
 
   describe('GET /users', function () {
-    // This case should be application/vnd.collection+json
+    let endPoint = '/v1/users'
     it('should return Content-type application/vnd.collection+json', function (done) {
       request(app)
-      .get('/v1/users')
-      .expect(200)
+      .get(endPoint)
       .end(function (err, res) {
         expect(err).to.equal(null)
         expect(res.type).to.equal('application/vnd.collection+json')
+        done()
+      })
+    })
+    it('should return status code 200', function (done) {
+      request(app)
+      .get(endPoint)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.status).to.equal(200)
         done()
       })
     })
