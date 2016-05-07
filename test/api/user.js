@@ -72,6 +72,15 @@ describe('Resource User', function () {
         done()
       })
     })
+    it('should return an json object in his entity body', function (done) {
+      request(app)
+      .get(endPoint)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body).to.be.an('object')
+        done()
+      })
+    })
   })
 
   // describe('GET /users/:id', function () {
