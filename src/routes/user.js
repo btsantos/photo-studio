@@ -44,17 +44,16 @@ router.route('/users')
    * curl GET http://localhost:3000/v1/users
    */
   .get(function (req, res) {
-    // TODO: Especificar el Content-type del response, para este caso es application/vnd.collection+json
     User.find({}, function (err, users) {
       if (!err) {
-        var _items = users.map((user) => {
+        let _items = users.map((user) => {
           return {
             // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
             href: config.urlBase + '/v1/users/' + user._id,
-            data: {
-              username: user.username,
-              email: user.email
-            },
+            data: [
+              { name: 'username', value: user.username },
+              { name: 'email', value: user.email }
+            ],
             links: []
           }
         })
@@ -64,7 +63,13 @@ router.route('/users')
             // to retrieve a representation of the document"
             href: config.urlBase + '/v1/users/',
             // Each item in the list represents an HTTP resource  with its own URL
-            items: _items
+            items: _items,
+            template: {
+              data: [
+                { prompt: "User's username", name: 'username', value: null },
+                { prompt: "User's email", name: 'email', value: null }
+              ]
+            }
           }
         }
         res.location(config.urlBase + '/v1/users/')
