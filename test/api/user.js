@@ -5,6 +5,7 @@ var expect = require('chai').expect
 var app = require('../../src')
 var faker = require('faker')
 var mongoose = require('mongoose')
+var config = require('../../config')
 
 const NUM_USERS = 10
 // var usersTest = []
@@ -87,6 +88,15 @@ describe('Resource User', function () {
       .end(function (err, res) {
         expect(err).to.equal(null)
         expect(res.body).to.has.property('collection').to.be.an('object')
+        done()
+      })
+    })
+    it('should return a href about resource /users into its collection', function (done) {
+      request(app)
+      .get(endPoint)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body.collection).to.has.property('href').equal(config.urlBase + '/v1/users/')
         done()
       })
     })
