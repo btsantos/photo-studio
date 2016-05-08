@@ -100,6 +100,15 @@ describe('Resource User', function () {
         done()
       })
     })
+    it('should return a collection which has a Array of items', function (done) {
+      request(app)
+      .get(endPoint)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body.collection).to.has.property('items').to.be.an('Array')
+        done()
+      })
+    })
   })
 
   // describe('GET /users/:id', function () {
