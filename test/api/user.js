@@ -81,6 +81,15 @@ describe('Resource User', function () {
         done()
       })
     })
+    it('should has a property collection in its entity body, it is an object javascript', function (done) {
+      request(app)
+      .get(endPoint)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body).to.has.property('collection').to.be.an('object')
+        done()
+      })
+    })
   })
 
   // describe('GET /users/:id', function () {
