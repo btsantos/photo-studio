@@ -7,14 +7,14 @@ var faker = require('faker')
 var mongoose = require('mongoose')
 var config = require('../../config')
 
-const NUM_USERS = 10
+const NUM_USERS = 5
 // var usersTest = []
 
 describe('Resource User', function () {
   before(function (done) {
     mongoose.connection.db.dropCollection('users', function (err, result) {
-      if (err) {
-        console.log(err)
+      if (!err) {
+        console.log('re-construir database')
       }
     })
     done()

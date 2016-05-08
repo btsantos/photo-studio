@@ -23,14 +23,13 @@ router.route('/users')
     var user = new User(req.body)
 
     user.save(function (err, doc) {
-      if (err) {
-        res.status(500).json({ message: 'Error en el servidor' })
+      if (!err) {
+        res.status(201).json({
+          _id: doc._id,
+          username: doc.username,
+          email: doc.email
+        })
       }
-      res.status(201).json({
-        _id: doc._id,
-        username: doc.username,
-        email: doc.email
-      })
     })
   })
 

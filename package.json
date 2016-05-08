@@ -18,6 +18,7 @@
     "start": "node index",
     "test-coverage": "istanbul cover _mocha -- --recursive -R spec",
     "test-ci": "make test",
+    "database-ci": "node ./test/db-ci",
     "lint": "standard",
     "test": "npm run lint && make test"
   },
