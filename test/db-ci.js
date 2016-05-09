@@ -1,18 +1,43 @@
+'use strict'
+
 var mongoose = require('mongoose')
 var config = require('../config')
 var User = require('../src/models/user')
+var faker = require('faker')
 
 mongoose.connect(config.mongodbUri)
 
 var db = mongoose.connection
 
+var collections = {
+  addUsers: function (cb) {
+    const totalUsers = 40
+    for (var i = 0; i < totalUsers; i++) {
+      let data = {
+        username: faker.internet.userName(),
+        email: faker.internet.email()
+      }
+      let newUser = new User(data)
+      newUser.save(function (err, user) {
+        if (err) {
+          cb(true, err)
+        }
+        console.log(user)
+      })
+    }
+    cb(null, "User's documents was added")
+  }
+}
+
 // Delete database
 db.on('open', function (err) {
-  mongoose.connection.db.dropDatabase(function (err) {
-    if (!err) {
-      console.log('Database deleted')
-    }
-  })
+  if (!err) {
+    mongoose.connection.db.dropDatabase(function (err) {
+      if (!err) {
+        console.log('Database deleted')
+      }
+    })
+  }
 })
 
 // Create database
@@ -25,15 +50,19 @@ db.on('open', function (err) {
   console.log('New Database')
   if (!err) {
     console.log("Inserting User's Datas...")
-    var user = new User()
-    user.username = 'mike'
-
-    user.save(function (err, doc) {
-      if (!err) {
-        console.log(doc)
-        db.close()
-      }
+    collections.addUsers(function (err, res) {
+      console.log(res)
+      // if (!err) {
+      //   console.log(res)
+      //   // db.close()
+      // }
+    //   // if (!err) {
     })
+    // collections.addUsers(function (err, res) {
+    //   //   console.log(res)
+    //   db.close()
+    //   // }
+    // })
   }
 })
 
