@@ -17,8 +17,8 @@
   "scripts": {
     "start": "node index",
     "test-coverage": "istanbul cover _mocha -- --recursive -R spec",
-    "test-ci": "make test",
     "database-ci": "node ./test/db-ci",
+    "test-ci": "npm run database-ci && make test",
     "lint": "standard",
     "test": "npm run lint && npm run database-ci && make test"
   },
