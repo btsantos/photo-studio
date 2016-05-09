@@ -30,18 +30,11 @@ db.on('open', function (err) {
   if (!err) {
     console.log("Inserting User's Datas...")
     collections.addUsers(function (err, res) {
-      console.log(res)
-      // if (!err) {
-      //   console.log(res)
-      //   // db.close()
-      // }
+      if (!err) {
+        console.log(res)
+        db.close()
+      }
     })
-    //   // if (!err) {
-    // collections.addUsers(function (err, res) {
-    //   //   console.log(res)
-    //   db.close()
-    //   // }
-    // })
   }
 })
 

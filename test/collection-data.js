@@ -5,21 +5,20 @@ var faker = require('faker')
 
 var collections = {
   addUsers: function (cb) {
-    const totalUsers = 40
+    const totalUsers = 10
+    let users = []
+
     for (var i = 0; i < totalUsers; i++) {
-      let data = {
+      let user = {
         username: faker.internet.userName(),
         email: faker.internet.email()
       }
-      let newUser = new User(data)
-      newUser.save(function (err, user) {
-        if (err) {
-          cb(true, err)
-        }
-        console.log(user)
-      })
+      users.push(user)
     }
-    cb(null, "User's documents was added")
+
+    User.create(users, function (err, res) {
+      err ? cb(true, err) : cb(null, "User's documents was added")
+    })
   }
 }
 
