@@ -2,32 +2,11 @@
 
 var mongoose = require('mongoose')
 var config = require('../config')
-var User = require('../src/models/user')
-var faker = require('faker')
+var collections = require('./collection-data')
 
 mongoose.connect(config.mongodbUri)
 
 var db = mongoose.connection
-
-var collections = {
-  addUsers: function (cb) {
-    const totalUsers = 40
-    for (var i = 0; i < totalUsers; i++) {
-      let data = {
-        username: faker.internet.userName(),
-        email: faker.internet.email()
-      }
-      let newUser = new User(data)
-      newUser.save(function (err, user) {
-        if (err) {
-          cb(true, err)
-        }
-        console.log(user)
-      })
-    }
-    cb(null, "User's documents was added")
-  }
-}
 
 // Delete database
 db.on('open', function (err) {
@@ -56,8 +35,8 @@ db.on('open', function (err) {
       //   console.log(res)
       //   // db.close()
       // }
-    //   // if (!err) {
     })
+    //   // if (!err) {
     // collections.addUsers(function (err, res) {
     //   //   console.log(res)
     //   db.close()
