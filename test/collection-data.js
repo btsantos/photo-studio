@@ -3,7 +3,7 @@
 var User = require('../src/models/user')
 var faker = require('faker')
 
-var collections = {
+module.exports = {
   addUsers: function (cb) {
     const totalUsers = 10
     let users = []
@@ -21,5 +21,3 @@ var collections = {
     })
   }
 }
-
-module.exports = collections

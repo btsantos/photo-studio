@@ -4,53 +4,31 @@ var request = require('supertest')
 var expect = require('chai').expect
 var app = require('../../src')
 var faker = require('faker')
-var mongoose = require('mongoose')
 var config = require('../../config')
 
-const NUM_USERS = 5
-// var usersTest = []
-
 describe('Resource User', function () {
-  before(function (done) {
-    mongoose.connection.db.dropCollection('users', function (err, result) {
-      if (!err) {
-        console.log('re-construir database')
-      }
-    })
-    done()
-  })
-
   describe('POST /users', function () {
-    var users = []
-    for (var i = 0; i < NUM_USERS; i++) {
-      users.push({
-        username: faker.internet.userName(),
-        email: faker.internet.email(),
-        password: faker.internet.password()
+    var user = {
+      username: faker.internet.userName(),
+      email: faker.internet.email(),
+      password: faker.internet.password()
+    }
+    it('should create the user = { name: ' + user.username + ', email: ' + user.email + '}', function (done) {
+      request(app)
+      .post('/v1/users')
+      .send(user)
+      .set('Accept', 'application/json')
+      .expect(201)
+      .end(function (err, res) {
+        var myUser = res.body
+        expect(err).to.be.equal(null)
+        expect(myUser).to.not.be.undefined
+        expect(myUser).to.has.property('_id')
+        expect(myUser).to.has.property('username').equal(user.username)
+        expect(myUser).to.has.property('email').equal(user.email)
+        done()
       })
-    }
-
-    for (var j = 0; j < NUM_USERS; j++) {
-      (function (i) {
-        // TODO: Especificar cual es el content-type del response que se espera del request
-        it('should create the user = { name: ' + users[i].username + ', email: ' + users[i].email + '}', function (done) {
-          request(app)
-          .post('/v1/users')
-          .send(users[i])
-          .set('Accept', 'application/json')
-          .expect(201)
-          .end(function (err, res) {
-            var myUser = res.body
-            expect(err).to.be.equal(null)
-            expect(myUser).to.not.be.undefined
-            expect(myUser).to.has.property('_id')
-            expect(myUser).to.has.property('username').equal(users[i].username)
-            expect(myUser).to.has.property('email').equal(users[i].email)
-            done()
-          })
-        })
-      })(j)
-    }
+    })
   })
 
   describe('GET /users', function () {

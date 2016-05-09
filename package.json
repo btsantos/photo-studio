@@ -20,7 +20,7 @@
     "test-ci": "make test",
     "database-ci": "node ./test/db-ci",
     "lint": "standard",
-    "test": "npm run lint && make test"
+    "test": "npm run lint && npm run database-ci && make test"
   },
   "repository": {
     "type": "git",

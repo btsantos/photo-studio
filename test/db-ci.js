@@ -23,10 +23,10 @@ db.on('open', function (err) {
 mongoose.createConnection(config.mongodbUri)
 db = mongoose.connection
 
-// Create Collections with data
-// Users
 db.on('open', function (err) {
   console.log('New Database')
+  // Create Collections with data
+  // Users
   if (!err) {
     console.log("Inserting User's Datas...")
     collections.addUsers(function (err, res) {
