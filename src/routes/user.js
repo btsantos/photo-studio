@@ -19,11 +19,11 @@ router.route('/users')
    * @apiParam (RequestBody) {String} password The password to use in the login
    */
   .post(function (req, res) {
-    // TODO: Especificar el Content-type del response, para este caso es application/json
     var user = new User(req.body)
 
     user.save(function (err, doc) {
       if (!err) {
+        res.set('Content-type', 'application/vnd.collection+json')
         res.status(201).json({
           _id: doc._id,
           username: doc.username,
