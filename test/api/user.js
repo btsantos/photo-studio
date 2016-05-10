@@ -31,6 +31,17 @@ describe('Resource Users', function () {
         done()
       })
     })
+
+    it('should return Content-type application/nvd.collection+json', function (done) {
+      request(app)
+      .post(endPoint)
+      .send(userData)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.type).to.equal('application/vnd.collection+json')
+        done()
+      })
+    })
   })
 
   describe('GET /users', function () {
