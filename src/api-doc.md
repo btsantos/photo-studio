@@ -22,3 +22,23 @@
          It's deleted, and I don't have anything more to say about it
      3.- 202 Accepted
          I will delete it later
+    
+     If a client tries to GET a resource that has been DELETED, the server will return an error response
+     code, usually 404 (Not Found) or 410 (Gone)
+
+     Example:
+
+     Request
+     GET /api/47yj HTTP/1.1
+     Host: www.nonap.com
+     
+     Response
+     HTTP/1.1 404 Not Found
+
+     Idempotence
+     DELETED is not a safe method. It has another useful property: it's idempotent
+     Once you delete a resource, it's gone. The resource STATE has PERMANENTLY CHANGED.
+     You can send another DELETE request, and you might get a 404 error, but the resource
+     state is exactly as it was after the first request. The resource is still gone.
+     That's idempotence. Sending a request twice has the same effect on resource state as
+     sending it once.
