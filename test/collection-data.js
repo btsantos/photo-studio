@@ -17,7 +17,7 @@ module.exports = {
     }
 
     User.create(users, function (err, res) {
-      err ? cb(true, err) : cb(null, "User's documents was added")
+      err ? cb(true, err) : cb(null, "> User's documents was added")
     })
   }
 }

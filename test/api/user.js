@@ -6,26 +6,28 @@ var app = require('../../src')
 var faker = require('faker')
 var config = require('../../config')
 
-describe('Resource User', function () {
+describe('Resource Users', function () {
   describe('POST /users', function () {
-    var user = {
-      username: faker.internet.userName(),
-      email: faker.internet.email(),
-      password: faker.internet.password()
-    }
-    it('should create the user = { name: ' + user.username + ', email: ' + user.email + '}', function (done) {
+    const endPoint = '/v1/users'
+    let userData = {}
+
+    beforeEach(function () {
+      userData = {
+        username: faker.internet.userName(),
+        email: faker.internet.email(),
+        password: faker.internet.password()
+      }
+    })
+
+    it('should return status code 201', function (done) {
       request(app)
-      .post('/v1/users')
-      .send(user)
-      .set('Accept', 'application/json')
-      .expect(201)
+      .post(endPoint)
+      .send(userData)
       .end(function (err, res) {
-        var myUser = res.body
-        expect(err).to.be.equal(null)
-        expect(myUser).to.not.be.undefined
-        expect(myUser).to.has.property('_id')
-        expect(myUser).to.has.property('username').equal(user.username)
-        expect(myUser).to.has.property('email').equal(user.email)
+        if (err) {
+          return Error(err.message)
+        }
+        expect(res.status).to.equal(201)
         done()
       })
     })

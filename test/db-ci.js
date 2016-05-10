@@ -13,22 +13,22 @@ db.on('open', function (err) {
   if (!err) {
     mongoose.connection.db.dropDatabase(function (err) {
       if (!err) {
-        console.log('Database deleted')
+        console.log('> Database deleted')
       }
     })
   }
 })
 
-// Create database
 mongoose.createConnection(config.mongodbUri)
+// Create database
 db = mongoose.connection
 
 db.on('open', function (err) {
-  console.log('New Database')
+  console.log('> New Database')
   // Create Collections with data
   // Users
   if (!err) {
-    console.log("Inserting User's Datas...")
+    console.log("> Inserting User's Datas...")
     collections.addUsers(function (err, res) {
       if (!err) {
         console.log(res)
@@ -40,7 +40,7 @@ db.on('open', function (err) {
 
 db.on('close', function (err) {
   if (!err) {
-    console.log('Continuous Database Integration was successful')
+    console.log('> Continuous Database Integration was successful')
     process.exit(0)
   }
 })
