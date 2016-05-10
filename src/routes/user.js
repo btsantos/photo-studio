@@ -116,7 +116,13 @@ router.route('/users/:id')
    * curl DELETE http://localhost:3000/v1/users/123456
    */
   .delete(function (req, res) {
-    // TODO: Especificar el Content-type del response, para este caso es application/json
+    // Status Code
+    // 1.- 200 Ok 
+    //     => It's deleted, and here is a message about that
+    // 2.- 204 No Content
+    //     => It's deleted, and I don't have anything more to say about it
+    // 3.- 202 Accepted
+    //     => I will delete it later
     User.findById(req.params.id, function (err, user) {
       if (!err) {
         if (user) {
