@@ -42,6 +42,17 @@ describe('Resource Users', function () {
         done()
       })
     })
+
+    it('should return object literal that has a href property with its URL, it represents the new resource created', function (done) {
+      request(app)
+      .post(endPoint)
+      .send(userData)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body).to.has.property('href')
+        done()
+      })
+    })
   })
 
   describe('GET /users', function () {
