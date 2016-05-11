@@ -20,7 +20,7 @@ router.route('/users')
    */
   .post(function (req, res) {
     var user = new User(req.body)
-
+    // TODO: Especificar el Location en el header para la URL del recurso creado
     user.save(function (err, doc) {
       if (!err) {
         let userRepresentation = {

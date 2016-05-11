@@ -42,3 +42,18 @@
      state is exactly as it was after the first request. The resource is still gone.
      That's idempotence. Sending a request twice has the same effect on resource state as
      sending it once.
+
+ 3.- POST
+     When a client sends a POST-to-append request, it sends a represenation of the resource it wants to create
+     in the request's entity-body.
+     The POST method is neither safe nor idempotent.
+     You can use POST method to all sorts of things other than 'creat a new resource'
+
+     Status Code:
+     1.- 201 Created
+         It lets the client know that a new resource was created. The Location header lets the client know
+         the URL to this new resource.
+     2.- 202 Accepted
+         Which means that the server intends to create a new resource based on the given representation,
+         but hasn't actually created it yet.
+
