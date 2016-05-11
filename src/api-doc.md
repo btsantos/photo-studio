@@ -56,4 +56,15 @@
      2.- 202 Accepted
          Which means that the server intends to create a new resource based on the given representation,
          but hasn't actually created it yet.
+ 4.- PUT
+     A PUT request is a request to modify resource state. The client takes the representation it got
+     from a GET request, modifies it, and sends it back as the payload of a PUT request.
+     If the server decides to accept a PUT request, the server changes the resource state to match
+     the client says in the representation.
 
+     Status Code:
+     1.- 200 Ok
+     2.- 204 No Content
+
+     PUT is idempotent, just like DELETE. If you send the same PUT request 10 times, the result is the
+     same as if you'd only sent it  once.

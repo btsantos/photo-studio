@@ -139,24 +139,12 @@ router.route('/users/:id')
    * curl PUT http://localhost:3000/v1/users/123456
    */
   .put(function (req, res) {
-    // TODO: Especificar el Content-type del response, para este caso es application/json
+    // TODO: Definir status code 200 (ok) or 204 (No Content)
     User.findById(req.params.id, function (err, user) {
       if (!err) {
         user.username = req.body.username
         user.save(function (err, doc) {
           if (!err && doc) {
-            let user = {
-              _id: doc._id,
-              _links: [
-                {
-                  rel: 'self',
-                  href: config.urlBase + 'v1/users/' + doc._id
-                }
-              ],
-              username: doc.username,
-              email: doc.email
-            }
-            res.status(201).json(user)
           }
         })
       }
