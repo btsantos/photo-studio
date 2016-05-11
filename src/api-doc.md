@@ -68,3 +68,37 @@
 
      PUT is idempotent, just like DELETE. If you send the same PUT request 10 times, the result is the
      same as if you'd only sent it  once.
+
+5.- PATCH
+    Instead of PUTting a full representation, you can create s special 'diff' representation and send it
+    to the server as the payload of a PATCH request. RFC 6902 describes a patch format for JSON documents.
+
+    Status Code:
+    1.- 200 Ok
+        If the server wants to send data (such as an updated representation of the resource) along with its response.
+    2.- 204 No Content
+        If the server just wants to indicate success.
+
+    PATCH is neither safe nor idempotent. A PATCH request might turn out to be idempotent, so that if
+    you accidentally apply the same patch twice to the same document, you get an error the second time.
+
+    PATCH is not defined in the HTTP specification.
+
+6.- HEAD
+    It is a safe method, just like GET. The server is supposed to treat a HEAD request exactly the same as
+    a GET request, but it's not supposed to send an entity-body-only the HTTP status code and the headers
+
+7.- OPTIONS
+    It is a primitive dicovery mechanism of HTTP. The response to an OPTIONS request contains the HTTP Allow
+    header, which lays out wich HTTP methods the resource supports.
+    Example:
+
+    OPTIONS /api/dfkjdjf32 HTTP/1.1
+    Host: www.nonap.com
+
+    200 OK
+    Allow: GET PUT POST OPTIONS
+
+    OPTIONS is a good idea, but almost nobody uses it.
+
+
