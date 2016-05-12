@@ -53,6 +53,17 @@ describe('Resource Users', function () {
         done()
       })
     })
+
+    it('should return object literal that has a Array with its data', function (done) {
+      request(app)
+      .post(endPoint)
+      .send(userData)
+      .end(function (err, res) {
+        expect(err).to.equal(null)
+        expect(res.body).to.has.property('data').to.be.an('Array')
+        done()
+      })
+    })
   })
 
   describe('GET /users', function () {
@@ -66,6 +77,7 @@ describe('Resource Users', function () {
         done()
       })
     })
+
     it('should return status code 200', function (done) {
       request(app)
       .get(endPoint)
@@ -75,6 +87,7 @@ describe('Resource Users', function () {
         done()
       })
     })
+
     it('should return an json object in his entity body', function (done) {
       request(app)
       .get(endPoint)
@@ -84,6 +97,7 @@ describe('Resource Users', function () {
         done()
       })
     })
+
     it('should has a property collection in its entity body, it is an object javascript', function (done) {
       request(app)
       .get(endPoint)
@@ -93,6 +107,7 @@ describe('Resource Users', function () {
         done()
       })
     })
+
     it('should return a href about resource /users into its collection', function (done) {
       request(app)
       .get(endPoint)
@@ -102,6 +117,7 @@ describe('Resource Users', function () {
         done()
       })
     })
+
     it('should return a collection which has a Array of items', function (done) {
       request(app)
       .get(endPoint)
