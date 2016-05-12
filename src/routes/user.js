@@ -28,7 +28,8 @@ router.route('/users')
           data: [
             {name: 'username', value: doc.username},
             {name: 'email', value: doc.email}
-          ]
+          ],
+          links: []
         }
         res.set('Content-type', 'application/vnd.collection+json')
         res.status(201).json(userRepresentation)
