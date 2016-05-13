@@ -39,7 +39,6 @@ describe('Resource Users', function () {
       .end(function (err, res) {
         expect(err).to.equal(null)
         expect(res.type).to.equal('application/vnd.collection+json')
-        console.log(res.body)
         done()
       })
     })
@@ -123,12 +122,14 @@ describe('Resource Users', function () {
       })
     })
 
-    it('should return a href about resource /users into its collection', function (done) {
+    it('should has a _links property with its href about itself', function (done) {
       request(app)
       .get(endPoint)
       .end(function (err, res) {
         expect(err).to.equal(null)
-        expect(res.body.collection).to.has.property('href').equal(config.urlBase + '/v1/users/')
+        expect(res.body.collection).to.has.property('_links')
+        expect(res.body.collection._links).to.has.property('self').to.be.an('object')
+                                          .to.has.property('href').equal(config.urlBase + '/v1/users/')
         done()
       })
     })
