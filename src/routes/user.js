@@ -24,14 +24,15 @@ router.route('/users')
     user.save(function (err, doc) {
       if (!err) {
         let userRepresentation = {
-          href: config.urlBase + '/v1/users/' + doc._id,
+          id: doc._id,
           data: {
-            id: doc._id,
             username: doc.username,
             email: doc.email,
             created: doc.createdOn
           },
-          _links: {}
+          _links: {
+            self: { href: config.urlBase + '/v1/users/' + doc._id }
+          }
         }
         res.set('Content-type', 'application/vnd.collection+json')
         res.status(201).json(userRepresentation)
