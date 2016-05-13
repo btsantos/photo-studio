@@ -128,8 +128,7 @@ describe('Resource Users', function () {
       .end(function (err, res) {
         expect(err).to.equal(null)
         expect(res.body.collection).to.has.property('_links')
-        expect(res.body.collection._links).to.has.property('self').to.be.an('object')
-                                          .to.has.property('href').equal(config.urlBase + '/v1/users/')
+        expect(res.body.collection).to.has.property('href').equal(config.urlBase + '/v1/users/')
         done()
       })
     })

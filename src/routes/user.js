@@ -24,15 +24,13 @@ router.route('/users')
     user.save(function (err, doc) {
       if (!err) {
         let userRepresentation = {
-          id: doc._id,
+          href: config.urlBase + '/v1/users/' + doc._id,
           data: {
             username: doc.username,
             email: doc.email,
             created: doc.createdOn
           },
-          _links: {
-            self: { href: config.urlBase + '/v1/users/' + doc._id }
-          }
+          _links: {}
         }
         res.set('Content-type', 'application/vnd.collection+json')
         res.status(201).json(userRepresentation)
@@ -54,30 +52,24 @@ router.route('/users')
       if (!err) {
         let _items = users.map((user) => {
           return {
-            id: user._id,
+            // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
+            href: config.urlBase + '/v1/users/' + user._id,
             data: {
               username: user.username,
               email: user.email,
               createdOn: user.createdOn
             },
-            links: {
-              // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
-              self: { href: config.urlBase + '/v1/users/' + user._id }
-            }
+            _links: {}
           }
         })
         let collectionUsers = {
           collection: {
+            // The Collection+JSON standar defines  this string (href) as "the address used
+            // to retrieve a representation of the document"
+            href: config.urlBase + '/v1/users/',
             // Each item in the list represents an HTTP resource  with its own URL
             items: _items,
-
-            _links: {
-              // The Collection+JSON standar defines  this string (href) as "the address used
-              // to retrieve a representation of the document"
-              self: { href: config.urlBase + '/v1/users/' },
-              prev: {},
-              next: {}
-            }
+            _links: {}
           }
         }
         res.location(config.urlBase + '/v1/users/')
