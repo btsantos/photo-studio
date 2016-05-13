@@ -25,11 +25,13 @@ router.route('/users')
       if (!err) {
         let userRepresentation = {
           href: config.urlBase + '/v1/users/' + doc._id,
-          data: [
-            {name: 'username', value: doc.username},
-            {name: 'email', value: doc.email}
-          ],
-          links: []
+          data: {
+            id: doc._id,
+            username: doc.username,
+            email: doc.email,
+            created: doc.createdOn
+          },
+          _links: {}
         }
         res.set('Content-type', 'application/vnd.collection+json')
         res.status(201).json(userRepresentation)
