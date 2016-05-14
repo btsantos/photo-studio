@@ -50,15 +50,33 @@ router.route('/users')
   .get(function (req, res) {
     User.find({}, function (err, users) {
       if (!err) {
+        // Representing the Items. The most important field in a Collection+JSON representation
         let _items = users.map((user) => {
           return {
             // A document tha doesn't follow these rules isn't a Collection+JSON document: It's just some JSON
             href: config.urlBase + '/v1/users/' + user._id,
-            data: {
-              username: user.username,
-              email: user.email,
-              createdOn: user.createdOn
-            },
+            data: [
+              {
+                name: 'username',
+                value: user.username,
+                prompt: 'The username that user was registered'
+              },
+              {
+                name: 'email',
+                value: user.email,
+                prompt: 'The email tha user was registered'
+              },
+              {
+                name: 'createdOn',
+                value: user.createdOn,
+                prompt: 'The data the user was created'
+              }
+            ],
+            // data: {
+            //   username: user.username,
+            //   email: user.email,
+            //   createdOn: user.createdOn
+            // },
             _links: {}
           }
         })
@@ -69,7 +87,13 @@ router.route('/users')
             href: config.urlBase + '/v1/users/',
             // Each item in the list represents an HTTP resource  with its own URL
             items: _items,
-            _links: {}
+            total: users.length,
+            _links: {
+              first: {},
+              previous: {},
+              next: {},
+              last: {}
+            }
           }
         }
         res.location(config.urlBase + '/v1/users/')
