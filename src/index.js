@@ -12,6 +12,7 @@ var app = express()
 
 mongoose.connect(config.mongodbUri)
 
+// This middleware will be executed on every request
 function logRequests (req, res, next) {
   console.log('[' + req.method + '] ' + req.url)
   next()
