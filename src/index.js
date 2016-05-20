@@ -12,6 +12,12 @@ var app = express()
 
 mongoose.connect(config.mongodbUri)
 
+function logRequests (req, res, next) {
+  console.log('[' + req.method + '] ' + req.url)
+  next()
+}
+
+app.use(logRequests)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 

@@ -84,7 +84,7 @@ router.route('/users')
           collection: {
             // The Collection+JSON standar defines  this string (href) as "the address used
             // to retrieve a representation of the document"
-            href: config.urlBase + '/v1/users/',
+            href: config.urlBase + '/v1/users',
             // Each item in the list represents an HTTP resource  with its own URL
             items: _items,
             total: users.length,
@@ -96,14 +96,16 @@ router.route('/users')
             }
           }
         }
-        res.location(config.urlBase + '/v1/users/')
+        res.location(config.urlBase + '/v1/users')
         res.set('Content-Type', 'application/vnd.collection+json')
         res.status(200).json(collectionUsers)
       }
     })
   })
 
-router.route('/users/:id')
+router.route('/users/:user_id')
+  // .all(checkAuthentication)
+  // .all(loadUserData)
   /**
    * @api {get} /users/2324 Get one user
    * @apiDescription Endpoint to get one user with id
@@ -115,7 +117,7 @@ router.route('/users/:id')
    */
   .get(function (req, res) {
     // TODO: Especificar el Content-type del response, para este caso es application/json
-    User.findById(req.params.id, function (err, user) {
+    User.findById(req.params.user_id, function (err, user) {
       if (err) {
         res.status(500).json({message: 'Fail in the server'})
       } else {
@@ -142,7 +144,7 @@ router.route('/users/:id')
    * curl DELETE http://localhost:3000/v1/users/123456
    */
   .delete(function (req, res) {
-    User.findById(req.params.id, function (err, user) {
+    User.findById(req.params.user_id, function (err, user) {
       if (!err) {
         if (user) {
           user.remove(function (err) {
@@ -166,7 +168,7 @@ router.route('/users/:id')
    */
   .put(function (req, res) {
     // TODO: Definir status code 200 (ok) or 204 (No Content)
-    User.findById(req.params.id, function (err, user) {
+    User.findById(req.params.user_id, function (err, user) {
       if (!err) {
         user.username = req.body.username
         user.save(function (err, doc) {
