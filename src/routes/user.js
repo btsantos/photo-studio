@@ -4,6 +4,18 @@ var router = require('express').Router()
 var User = require('../models/user')
 var config = require('../../config')
 
+router.param('user_id', function (req, res, next, id) {
+  User.findById(id, function (err, user) {
+    if (err) {
+      // This will call error handler
+      next(new Error("There was an error loading the user's information"))
+    } else {
+      req.user = user
+      next()
+    }
+  })
+})
+
 router.route('/users')
   /**
    * @api {post} /users Create new user
@@ -116,22 +128,22 @@ router.route('/users/:user_id')
    * curl GET http://localhost:3000/v1/users/123456
    */
   .get(function (req, res) {
-    // TODO: Especificar el Content-type del response, para este caso es application/json
-    User.findById(req.params.user_id, function (err, user) {
-      if (err) {
-        res.status(500).json({message: 'Fail in the server'})
-      } else {
-        if (user) {
-          res.status(200).json({
-            _id: user._id,
-            username: user.username,
-            email: user.email
-          })
-        } else {
-          res.status(404).json({message: 'User did not find'})
-        }
-      }
-    })
+    res.status(200).json(req.user)
+    // User.findById(req.params.user_id, function (err, user) {
+    //   if (err) {
+    //     res.status(500).json({message: 'Fail in the server'})
+    //   } else {
+    //     if (user) {
+    //       res.status(200).json({
+    //         _id: user._id,
+    //         username: user.username,
+    //         email: user.email
+    //       })
+    //     } else {
+    //       res.status(404).json({message: 'User did not find'})
+    //     }
+    //   }
+    // })
   })
 
   /**
@@ -143,19 +155,19 @@ router.route('/users/:user_id')
    * @apiExample {curl} CURL Example:
    * curl DELETE http://localhost:3000/v1/users/123456
    */
-  .delete(function (req, res) {
-    User.findById(req.params.user_id, function (err, user) {
-      if (!err) {
-        if (user) {
-          user.remove(function (err) {
-            if (!err) {
-              res.status(200).json({message: 'User ' + user.username + ' was deleted'})
-            }
-          })
-        }
-      }
-    })
-  })
+  // .delete(function (req, res) {
+  //   User.findById(req.params.user_id, function (err, user) {
+  //     if (!err) {
+  //       if (user) {
+  //         user.remove(function (err) {
+  //           if (!err) {
+  //             res.status(200).json({message: 'User ' + user.username + ' was deleted'})
+  //           }
+  //         })
+  //       }
+  //     }
+  //   })
+  // })
 
   /**
    * @api {put} /users/2324 Update one user
@@ -166,17 +178,17 @@ router.route('/users/:user_id')
    * @apiExample {curl} CURL Example:
    * curl PUT http://localhost:3000/v1/users/123456
    */
-  .put(function (req, res) {
-    // TODO: Definir status code 200 (ok) or 204 (No Content)
-    User.findById(req.params.user_id, function (err, user) {
-      if (!err) {
-        user.username = req.body.username
-        user.save(function (err, doc) {
-          if (!err && doc) {
-          }
-        })
-      }
-    })
-  })
+  // .put(function (req, res) {
+  //   // TODO: Definir status code 200 (ok) or 204 (No Content)
+  //   User.findById(req.params.user_id, function (err, user) {
+  //     if (!err) {
+  //       user.username = req.body.username
+  //       user.save(function (err, doc) {
+  //         if (!err && doc) {
+  //         }
+  //       })
+  //     }
+  //   })
+  // })
 
 module.exports = router
