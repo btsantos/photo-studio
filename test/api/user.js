@@ -4,9 +4,20 @@ var request = require('supertest')
 var expect = require('chai').expect
 var app = require('../../src')
 var faker = require('faker')
-// var config = require('../../config')
+var config = require('../../config')
+var mongoose = require('mongoose')
 
 describe('Resource Users', function () {
+  before(function (done) {
+    mongoose.connect(config.mongodbUri)
+    done()
+  })
+
+  after(function (done) {
+    mongoose.connection.close()
+    done()
+  })
+
   describe('POST /users', function () {
     const endPoint = '/v1/users'
     let userData = {}
@@ -98,7 +109,6 @@ describe('Resource Users', function () {
       .end(function (err, res) {
         expect(err).to.equal(null)
         expect(res.status).to.equal(200)
-        console.log(res.body)
         done()
       })
     })
