@@ -1,6 +1,6 @@
 'use strict'
 
-var User = require('../src/models/user')
+var User = require('../../src/models/user')
 var faker = require('faker')
 
 module.exports = {
